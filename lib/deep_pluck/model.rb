@@ -5,13 +5,14 @@ module DeepPluck
     # ----------------------------------------------------------------
     # ● Initialize
     # ----------------------------------------------------------------
-    def initialize(relation, parent_association_key = nil, parent_model = nil, preloaded_model: nil)
+    def initialize(relation, parent_association_key = nil, parent_model = nil, preloaded_model: nil, user: nil)
       @relation = relation
       @preloaded_model = preloaded_model
       @parent_association_key = parent_association_key
       @parent_model = parent_model
       @need_columns = (preloaded_model ? preloaded_model.need_columns : [])
       @associations = {}
+      @user = user
     end
 
     # ----------------------------------------------------------------
@@ -65,7 +66,7 @@ module DeepPluck
 
     def add_association(hash)
       hash.each do |key, value|
-        model = (@associations[key] ||= Model.new(get_reflect(key).klass.where(''), key, self))
+        model = (@associations[key] ||= Model.new(get_reflect(key).klass.where(''), key, self, user: @user))
         model.add(value)
       end
     end
@@ -98,7 +99,7 @@ module DeepPluck
       relation = with_conditions(reflect, relation)
       query = { relation_key => ids }
       query[reflect.type] = reflect.active_record.to_s if reflect.type
-      return relation.joins(get_join_table(reflect)).where(query)
+      return relation.joins(get_join_table(reflect)).visible_for(user: @user).where(query)
     end
 
     def set_includes_data(parent, column_name, model)
