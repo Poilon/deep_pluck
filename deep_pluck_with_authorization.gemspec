@@ -4,14 +4,17 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'deep_pluck/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'deep_pluck'
+  spec.name          = 'deep_pluck_with_authorization'
   spec.version       = DeepPluck::VERSION
-  spec.authors       = ['khiav reoy']
-  spec.email         = ['mrtmrt15xn@yahoo.com.tw']
+  spec.authors       = ['Poilon']
+  spec.email         = ['poilon@gmail.com']
 
-  spec.summary       = 'Use deep_pluck as a shortcut to select one or more attributes and include associated models without loading a bunch of records.'
-  spec.description   = 'Use deep_pluck as a shortcut to select one or more attributes and include associated models without loading a bunch of records. And DRY up your code when using #as_json.'
-  spec.homepage      = 'https://github.com/khiav223577/deep_pluck'
+  spec.summary       = 'Use deep_pluck as a shortcut to select one or more attributes and' \
+    ' include associated models without loading a bunch of records. Added a filter for graphql_rails_api gem.'
+  spec.description   = 'Use deep_pluck as a shortcut to select one or more attributes and' \
+    ' include associated models without loading a bunch of records. And DRY up your code w' \
+    'hen using #as_json. Added a filter for graphql_rails_api gem'
+  spec.homepage      = 'https://github.com/poilon/deep_pluck'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
