@@ -110,7 +110,7 @@ module DeepPluck
       children = model.load_data{|relation| do_query(parent, reflect, relation) }
       # reverse = false: Child.where(:id => parent.pluck(:child_id))
       # reverse = true : Child.where(:parent_id => parent.pluck(:id))
-      return DataCombiner.combine_data(
+      DataCombiner.combine_data(
         parent,
         children,
         primary_key,
@@ -119,6 +119,7 @@ module DeepPluck
         reverse,
         reflect.collection?,
       )
+      parent.each { |p| p[column_name] = p[column_name].first if p[column_name].is_a?(Array) } if reflect.has_one?
     end
 
     def get_query_columns
