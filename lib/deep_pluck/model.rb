@@ -117,7 +117,7 @@ module DeepPluck
         column_name,
         foreign_key,
         reverse,
-        reflect.has_one ? true : reflect.collection?,
+        reflect.has_one? ? true : reflect.collection?,
       )
       parent.each { |p| p[column_name] = p[column_name].first if p[column_name].is_a?(Array) } if reflect.has_one?
     end
